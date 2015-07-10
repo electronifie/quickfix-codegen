@@ -1,0 +1,79 @@
+{{#each this.components}}
+var {{this.name}} = require('../components/{{this.name}}');
+{{/each}}
+{{#each this.fields}}
+var {{this.name}} = require('../fields/{{this.name}}');
+{{/each}}
+{{#if this.groups.length }}
+{{#each this.groups}}
+var {{this.name}} = require('../fields/{{this.name}}');
+{{#if this.components.length }}
+{{#each this.components}}
+var {{this.name}} = require('../components/{{this.name}}');
+{{/each}}
+{{/if}}
+{{#if this.fields.length }}
+{{#each this.fields}}
+var {{this.name}} = require('../fields/{{this.name}}');
+{{/each}}
+{{/if}}
+{{/each}}
+{{/if}}
+
+function {{ this.name }} ({{camelCase this.name}}) {
+  this.message = {{camelCase this.name}};
+}
+{{#if this.components.length }}
+{{#each this.components}}
+/* component */
+{{../name}}.prototype.{{camelCase this.name}} = function () {
+  return this.message.groups[{{this.name}}.Tag]
+    .map(function ({{camelCase this.name}}) {
+      return new {{this.name}}({{camelCase this.name}});
+  });
+};
+
+{{/each}}
+{{/if}}
+{{#if this.fields.length }}
+{{#each this.fields}}
+/* field */
+{{../name}}.prototype.{{camelCase this.name}} = function () {
+  return new {{this.name}}(this.message.tags[{{this.name}}.Tag]);
+};
+
+{{/each}}
+{{/if}}
+
+{{#if this.groups.length }}
+{{#each this.groups}}
+/* group */
+
+{{#if this.components.length }}
+{{#each this.components}}
+/* component */
+{{../../../name}}.prototype.{{camelCase this.name}} = function () {
+  return this.message.groups[{{this.name}}.Tag]
+    .map(function ({{camelCase this.name}}) {
+      return new {{this.name}}({{camelCase this.name}});
+  });
+};
+
+{{/each}}
+{{/if}}
+{{#if this.fields.length }}
+{{#each this.fields}}
+/* field */
+{{../../../name}}.prototype.{{camelCase this.name}} = function () {
+  return new {{this.name}}(this.message.tags[{{this.name}}.Tag]);
+};
+
+{{/each}}
+{{/if}}
+/* end group */
+{{/each}}
+{{/if}}
+
+{{this.name}}.Tag = '{{this.tag}}';
+
+module.exports = {{this.name}};

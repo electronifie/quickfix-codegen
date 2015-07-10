@@ -1,0 +1,38 @@
+{{#each this.components}}
+var {{this.name}} = require('../components/{{this.name}}');
+{{/each}}
+{{#each this.fields}}
+var {{this.name}} = require('../fields/{{this.name}}');
+{{/each}}
+
+function {{ this.name }} ({{camelCase this.name}}) {
+  this.message = {{camelCase this.name}};
+}
+
+{{#each this.components}}
+{{../name}}.prototype.{{camelCase this.name}} = function () {
+  return this.message.groups[{{../name}}.Tags.{{this.name}}]
+    .map(function ({{camelCase this.name}}) {
+      return new {{this.name}}({{camelCase this.name}});
+  });
+};
+
+{{/each}}
+{{#each this.fields}}
+{{../name}}.prototype.{{camelCase this.name}} = function () {
+  return new {{this.name}}(this.message.tags[{{../name}}.Tags.{{this.name}}]);
+};
+
+{{/each}}
+{{this.name}}.Tags = {
+  {{#each this.components}}
+  {{this.name}}: '{{componentNumber this}}',
+  {{/each}}
+  {{#each this.fields}}
+  {{this.name}}: '{{fieldNumber this}}',
+  {{/each}}
+};
+
+{{this.name}}.msgType = '{{this.msgType}}';
+
+module.exports = {{this.name}};

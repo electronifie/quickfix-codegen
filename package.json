@@ -1,0 +1,24 @@
+{
+  "name": "quickfix-codegen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "quickfix-codegen": "index.js"
+  },
+  "author": "matt.walters@electronifie.com",
+  "license": "ISC",
+  "dependencies": {
+    "camel-case": "^1.1.2",
+    "handlebars": "^3.0.3",
+    "invert-obj": "^1.0.0",
+    "libxmljs": "^0.14.2",
+    "mkdirp": "^0.5.1",
+    "pixl-xml": "^1.0.3",
+    "xml.js": "0.0.8",
+    "xml2js": "^0.4.9"
+  }
+}

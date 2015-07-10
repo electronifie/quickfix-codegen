@@ -1,0 +1,28 @@
+var invert = require('invert-obj');
+
+function {{ this.name }} ({{camelCase this.name}}) {
+  this.message = {{camelCase this.name}};
+}
+
+{{ this.name }}.prototype.value = function () {
+  return this.message;
+};
+
+{{#if this.values.length}}
+
+{{ this.name }}.Keys = {
+{{#each this.values }}
+  {{ this.description }}: '{{ this.enum }}',
+{{/each}}
+};
+
+{{/if}}
+{{ this.name }}.Tag = '{{ this.number }}';
+
+{{ this.name }}.Type = '{{ this.type }}';
+
+{{#if this.values.length}}
+{{ this.name }}.Values = invert({{ this.name }}.Keys);
+
+{{/if}}
+module.exports = {{ this.name }};
