@@ -26,11 +26,11 @@ var messageTemplate = handlebars.compile(messageSource);
 function registerHelpers (doc) {
 
   function getComponent (name) {
-    return doc.get(util.format("/fix[@major='5']/components/component[@name='%s']", name));
+    return doc.get(util.format("/fix/components/component[@name='%s']", name));
   }
 
   function getField (name) {
-    return doc.get(util.format("/fix[@major='5']/fields/field[@name='%s']", name));
+    return doc.get(util.format("/fix/fields/field[@name='%s']", name));
   }
 
   function getFirstFieldNumber (element) {
@@ -108,12 +108,12 @@ mkdirp(OUTPUT_DIR, function (err) {
 
             registerHelpers(xmlDoc);
 
-            var messages = xmlDoc.get("/fix[@major='5']/messages");
+            var messages = xmlDoc.get("/fix/messages");
             var results = [];
 
             for (var i = 1; i <= messages.childNodes().length; i++) {
 
-              var message = xmlDoc.get(util.format("/fix[@major='5']/messages/message[%s]", i));
+              var message = xmlDoc.get(util.format("/fix/messages/message[%s]", i));
 
               var result = renderMessage(message, messageTemplate);
 
@@ -125,12 +125,12 @@ mkdirp(OUTPUT_DIR, function (err) {
 
             fs.writeFileSync(OUTPUT_DIR + '/messages/index.js', indexTemplate({ results: results }));
 
-            var components = xmlDoc.get("/fix[@major='5']/components");
+            var components = xmlDoc.get("/fix/components");
             var results = [];
 
             for (i = 1; i <= components.childNodes().length; i++) {
 
-              var component = xmlDoc.get(util.format("/fix[@major='5']/components/component[%s]", i));
+              var component = xmlDoc.get(util.format("/fix/components/component[%s]", i));
 
               var result = renderComponent(component, componentTemplate, messages);
 
@@ -141,11 +141,11 @@ mkdirp(OUTPUT_DIR, function (err) {
 
             fs.writeFileSync(OUTPUT_DIR + '/components/index.js', indexTemplate({ results: results }));
 
-            var fields = xmlDoc.get("/fix[@major='5']/fields");
+            var fields = xmlDoc.get("/fix/fields");
 
             for (i = 1; i <= fields.childNodes().length; i++) {
 
-              var field = xmlDoc.get(util.format("/fix[@major='5']/fields/field[%s]", i));
+              var field = xmlDoc.get(util.format("/fix/fields/field[%s]", i));
 
               var result = renderField(field, fieldTemplate);
 
