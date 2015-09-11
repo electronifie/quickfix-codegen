@@ -142,6 +142,7 @@ mkdirp(OUTPUT_DIR, function (err) {
             fs.writeFileSync(OUTPUT_DIR + '/components/index.js', indexTemplate({ results: results }));
 
             var fields = xmlDoc.get("/fix/fields");
+            var results = [];
 
             for (i = 1; i <= fields.childNodes().length; i++) {
 
