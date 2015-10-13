@@ -52,7 +52,7 @@ function {{ this.name }} ({{camelCase this.name}}) {
 {{#if this.components.length }}
 {{#each this.components}}
 /* component */
-{{../../../name}}.prototype.{{camelCase this.name}} = function () {
+{{../../name}}.prototype.{{camelCase this.name}} = function () {
   return this.message.groups[{{this.name}}.Tag]
     .map(function ({{camelCase this.name}}) {
       return new {{this.name}}({{camelCase this.name}});
@@ -64,7 +64,7 @@ function {{ this.name }} ({{camelCase this.name}}) {
 {{#if this.fields.length }}
 {{#each this.fields}}
 /* field */
-{{../../../name}}.prototype.{{camelCase this.name}} = function () {
+{{../../name}}.prototype.{{camelCase this.name}} = function () {
   return new {{this.name}}(this.message.tags[{{this.name}}.Tag]);
 };
 

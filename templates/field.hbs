@@ -12,7 +12,7 @@ function {{ this.name }} ({{camelCase this.name}}) {
 
 {{ this.name }}.Keys = {
 {{#each this.values }}
-  {{ this.description }}: '{{ this.enum }}',
+  '{{ this.description }}': '{{ this.enum }}',
 {{/each}}
 };
 
