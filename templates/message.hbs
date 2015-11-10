@@ -11,6 +11,8 @@ function {{ this.name }} ({{camelCase this.name}}) {
 
 {{#each this.components}}
 {{../name}}.prototype.{{camelCase this.name}} = function () {
+  if (this.message.groups === undefined) return null;
+  if (this.message.groups[{{../name}}.Tags.{{this.name}}] === undefined) return null;
   return this.message.groups[{{../name}}.Tags.{{this.name}}]
     .map(function ({{camelCase this.name}}) {
       return new {{this.name}}({{camelCase this.name}});
